@@ -1,0 +1,77 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body{
+    font-family: "Inter", serif;
+}
+
+.intro-bg{
+    background: url('https://images.unsplash.com/photo-1736077722346-31ba59414728?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: center;
+}
+
+.intro-bg::before{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @apply bg-slate-950/80;
+    mask-image: radial-gradient(circle 40rem, rgba(0,0,0,.9), transparent);
+}
+
+.intro-bg > * {
+    z-index: 1;
+}
+
+.imgs-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16em, 22em));
+    justify-content: center;
+}
+
+div:has(.prev){
+    perspective: 500px;
+}
+
+.prev{
+    transform: rotateY(30deg) rotateX(10deg);
+    box-shadow: -10px 0px 20px rgba(0,0,0,.15);
+    transform-origin: right center;
+}
+
+.nxt{
+    transform: rotateY(-30deg) rotateX(10deg);
+    box-shadow: 10px 0px 20px rgba(0,0,0,.15);
+    transform-origin: left center;
+}
+
+.loading-img-container span{
+    @apply inline-block absolute;
+}
+
+.loading-img-container span:nth-last-of-type(1){
+    --y: 60%;
+    @apply w-44 h-44 bg-slate-400/80 backdrop-blur-3xl left-[5%] rounded-l-3xl shadow-2xl;
+    top: 80%;
+    transform: rotate(45deg);
+    animation: slide-in 4s ease infinite alternate-reverse;
+}
+
+.loading-img-container span:nth-last-of-type(2){
+    --y: 40%;
+    @apply w-50 h-50 bg-slate-400 left-[40%] rounded-l-3xl shadow-2xl;
+    top: 100%;
+    transform: rotate(45deg);
+    animation: slide-in 4s ease .3s infinite alternate-reverse;
+}
+
+.loading-img-container span:nth-last-of-type(3){
+    @apply w-20 h-20 rounded-full bg-amber-300/50 blur-lg top-[5%] left-[5%] shadow-2xl animate-pulse;
+}
+
+@keyframes slide-in{
+    to{
+        top: var(--y);
+        opacity: 1;
+    }
+}
