@@ -1,13 +1,12 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 body{
     font-family: "Inter", serif;
 }
 
 .intro-bg{
-    background: url('https://images.unsplash.com/photo-1736077722346-31ba59414728?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-position: center;
+    /* background: url('https://images.unsplash.com/photo-1736077722346-31ba59414728?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); */
+    /* background-position: center; */
 }
 
 .intro-bg::before{
@@ -17,10 +16,15 @@ body{
     position: absolute;
     @apply bg-slate-950/80;
     mask-image: radial-gradient(circle 40rem, rgba(0,0,0,.9), transparent);
+    z-index: 2;
+}
+
+.intro-bg img{
+    z-index: 1;
 }
 
 .intro-bg > * {
-    z-index: 1;
+    z-index: 2;
 }
 
 .imgs-container{
@@ -45,13 +49,36 @@ div:has(.prev){
     transform-origin: left center;
 }
 
+.img-container::before{
+    @apply w-full h-full absolute inset-0 flex items-center justify-center font-extrabold text-lg text-slate-500 tracking-wider;
+    content: 'Loading';
+    animation: loading 1s ease infinite forwards;
+    z-index: 1;
+}
+
+.img-container img{
+    z-index: 2;
+}
+
+@keyframes loading{
+    33%{
+        content: 'Loading.';
+    }
+    66%{
+        content: 'Loading..';
+    }
+    99%{
+        content: 'Loading...';
+    }
+}
+
 .loading-img-container span{
     @apply inline-block absolute;
 }
 
 .loading-img-container span:nth-last-of-type(1){
     --y: 60%;
-    @apply w-44 h-44 bg-slate-400/80 backdrop-blur-3xl left-[5%] rounded-l-3xl shadow-2xl;
+    @apply w-44 h-44 bg-gradient-to-r from-slate-400/80 to-slate-500 backdrop-blur-3xl left-[5%] rounded-l-3xl shadow-2xl border-l-2 border-l-amber-100/80;
     top: 80%;
     transform: rotate(45deg);
     animation: slide-in 4s ease infinite alternate-reverse;
@@ -59,7 +86,7 @@ div:has(.prev){
 
 .loading-img-container span:nth-last-of-type(2){
     --y: 40%;
-    @apply w-50 h-50 bg-slate-400 left-[40%] rounded-l-3xl shadow-2xl;
+    @apply w-50 h-50 bg-gradient-to-r from-slate-400 to-slate-500 left-[40%] rounded-l-3xl shadow-2xl border-l-2 border-l-amber-100/80;
     top: 100%;
     transform: rotate(45deg);
     animation: slide-in 4s ease .3s infinite alternate-reverse;
