@@ -10,7 +10,7 @@ const HeroSection = () => {
 
   return (
     <div className="w-full h-64 flex flex-col items-center justify-center gap-8 intro-bg text-slate-100 relative">
-      {randomPhoto && <img src={randomPhoto} alt="" className="w-full h-full absolute object-cover"/>}
+      {randomPhoto && <img src={randomPhoto?.src?.original} alt="" className="w-full h-full absolute object-cover"/>}
       <h3 className="font-bold text-3xl mx-6 text-center">
         Surf through our image gallery...
       </h3>

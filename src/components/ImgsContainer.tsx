@@ -1,7 +1,9 @@
 interface Photo {
-    urls: {
-        full: string;
-    }
+    src: {
+        original: string;
+    },
+    avg_color: string,
+    alt: string
 }
 
 interface ImgContainerProps {
@@ -9,15 +11,17 @@ interface ImgContainerProps {
 }
 
 const ImgContainer = ({photo}:ImgContainerProps) => {
-    const {urls} = photo;
+    // console.log(photo);
+    const {src, alt:imgTitle, avg_color:color} = photo;
+
     return (
         <div className='img-container h-52 rounded-md bg-slate-300 border-2 border-slate-300 hover:border-slate-500 cursor-pointer inset-shadow-2xs hover:shadow-2xl shadow-slate-900/10 hover:scale-105 transition-all relative'>
-            <img src={urls.full} alt="" className="w-full h-full rounded-md object-cover relative"/>
+            <span className="w-8 h-8 absolute z-[3] rounded-full border-2 border-slate-200" style={{backgroundColor: color}}></span>
+            <img src={src.original} alt={imgTitle} title={imgTitle} className="w-full h-full rounded-md object-cover relative"/>
         </div>
     );
 }
 
-import { useEffect } from "react";
 import usePhotos from "../contexts/usePhotos";
 
 const ImgLoadingContainer = () => {
@@ -31,17 +35,13 @@ const ImgLoadingContainer = () => {
 }
 
 const ImgsContainer = () => {
-    const {photos, fetchImages, photosLoading} = usePhotos();
-
-    useEffect(() => {
-        fetchImages();
-    },[]);
+    const {photos, photosLoading} = usePhotos();
 
     return(
         <div className='imgs-container gap-6 mx-auto max-h-[30em] overflow-y-scroll p-4'>
               {
                 photosLoading ?
-                [...Array(10)].map((_, index) => <ImgLoadingContainer key={index}/>) : photos.map((photo, index) => <ImgContainer photo={photo} key={`photo-id-${index}`}/>)
+                [...Array(10)].map((_, index) => <ImgLoadingContainer key={index}/>) : photos?.map((photo, index) => <ImgContainer photo={photo} key={`photo-id-${index}`}/>)
               }
         </div>
     );

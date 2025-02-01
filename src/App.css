@@ -15,7 +15,7 @@ body{
     height: 100%;
     position: absolute;
     @apply bg-slate-950/80;
-    mask-image: radial-gradient(circle 40rem, rgba(0,0,0,.9), transparent);
+    mask-image: radial-gradient(circle 40rem, rgba(0,0,0,.9), rgba(0,0,0,.4));
     z-index: 2;
 }
 
